@@ -1,0 +1,1005 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kiran & Sewak | Our Universe</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<!-- Lenis Smooth Scroll -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+
+<style>
+
+:root{
+    --bg:#050505;
+    --card:#0e0e0e;
+    --soft:#141414;
+    --red:#ff3b5f;
+    --light:#fff;
+    --gray:#bdbdbd;
+    --glass:rgba(255,255,255,0.05);
+    --border:rgba(255,255,255,0.09);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:white;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+}
+
+/* =============================
+SCROLLBAR
+============================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:black;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(to bottom,var(--red),#8b0000);
+    border-radius:20px;
+}
+
+/* =============================
+GLOBAL
+============================= */
+
+section{
+    position:relative;
+    min-height:100vh;
+    padding:120px 8%;
+    overflow:hidden;
+}
+
+h1,h2,h3{
+    font-family:'Playfair Display',serif;
+}
+
+.glow{
+    position:fixed;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:rgba(255,0,85,0.12);
+    filter:blur(80px);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:999;
+}
+
+/* =============================
+PARTICLES
+============================= */
+
+.particles span{
+    position:absolute;
+    bottom:-100px;
+    width:10px;
+    height:10px;
+    background:rgba(255,255,255,0.2);
+    border-radius:50%;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(0) scale(0);
+        opacity:0;
+    }
+    50%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-120vh) scale(1);
+        opacity:0;
+    }
+}
+
+/* =============================
+PASSWORD SCREEN
+============================= */
+
+#lockScreen{
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)),
+    url('YOUR_BACKGROUND_IMAGE_HERE.jpg') center/cover;
+    z-index:99999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.lock-overlay{
+    position:absolute;
+    inset:0;
+    backdrop-filter:blur(8px);
+}
+
+.lock-content{
+    position:relative;
+    z-index:2;
+    width:90%;
+    max-width:450px;
+    text-align:center;
+    padding:40px;
+    border:1px solid rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(18px);
+    border-radius:30px;
+    box-shadow:0 0 60px rgba(255,0,85,0.1);
+}
+
+.lock-content h1{
+    font-size:3rem;
+    margin-bottom:20px;
+    font-family:'Great Vibes',cursive;
+    color:white;
+}
+
+.lock-content p{
+    color:#d8d8d8;
+    margin-bottom:30px;
+    line-height:1.8;
+}
+
+.password-box{
+    width:100%;
+    padding:16px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+    background:rgba(255,255,255,0.07);
+    color:white;
+    text-align:center;
+    font-size:1rem;
+    margin-bottom:20px;
+}
+
+.enter-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(45deg,#1b1b1b,var(--red));
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.enter-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 25px rgba(255,0,85,0.4);
+}
+
+.shake{
+    animation:shake 0.5s;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-8px);}
+    75%{transform:translateX(8px);}
+}
+
+/* =============================
+MAIN CONTENT
+============================= */
+
+#mainContent{
+    opacity:0;
+    pointer-events:none;
+}
+
+/* =============================
+HERO SECTION
+============================= */
+
+.hero{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:
+    radial-gradient(circle at center, rgba(255,0,85,0.12), transparent 40%),
+    #050505;
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.hero-sub{
+    letter-spacing:5px;
+    color:#a4a4a4;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:5rem;
+    line-height:1.1;
+    margin-bottom:30px;
+}
+
+.hero h1 span{
+    color:var(--red);
+}
+
+.hero p{
+    max-width:700px;
+    margin:auto;
+    color:#c8c8c8;
+    line-height:1.9;
+}
+
+.music-btn{
+    margin-top:40px;
+    padding:15px 35px;
+    border-radius:40px;
+    border:none;
+    background:rgba(255,255,255,0.07);
+    color:white;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.music-btn:hover{
+    background:var(--red);
+}
+
+/* =============================
+SECTION TITLES
+============================= */
+
+.section-title{
+    text-align:center;
+    margin-bottom:80px;
+}
+
+.section-title h2{
+    font-size:4rem;
+    margin-bottom:20px;
+}
+
+.section-title p{
+    color:#bfbfbf;
+}
+
+/* =============================
+LETTER SECTION
+============================= */
+
+.letter-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.letter-card{
+    width:100%;
+    max-width:900px;
+    background:
+    linear-gradient(to bottom right, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+    border:1px solid rgba(255,255,255,0.08);
+    padding:70px;
+    border-radius:35px;
+    position:relative;
+    overflow:hidden;
+    backdrop-filter:blur(12px);
+    box-shadow:0 0 60px rgba(255,0,85,0.08);
+}
+
+.letter-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at top right, rgba(255,0,85,0.1), transparent 30%);
+}
+
+.diary-title{
+    font-family:'Great Vibes',cursive;
+    font-size:4rem;
+    margin-bottom:30px;
+    color:#fff;
+}
+
+.typewriter{
+    font-size:1.1rem;
+    line-height:2;
+    color:#ddd;
+    min-height:200px;
+}
+
+/* =============================
+IMPORTANT:
+ADD YOUR LETTER BELOW INSIDE
+THE .typewriter DIV
+============================= */
+
+.read-btn{
+    margin-top:40px;
+    padding:14px 30px;
+    border:none;
+    border-radius:40px;
+    background:linear-gradient(45deg,var(--red),#530012);
+    color:white;
+    cursor:pointer;
+}
+
+/* =============================
+GALLERY
+============================= */
+
+.gallery-grid{
+    columns:3 250px;
+    gap:20px;
+}
+
+.gallery-item{
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.gallery-item img{
+    width:100%;
+    display:block;
+    transition:0.6s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.08);
+}
+
+.gallery-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    display:flex;
+    align-items:flex-end;
+    padding:20px;
+    opacity:0;
+    transition:0.5s;
+}
+
+.gallery-item:hover .gallery-overlay{
+    opacity:1;
+}
+
+/* =============================
+TIMELINE
+============================= */
+
+.timeline{
+    position:relative;
+    max-width:900px;
+    margin:120px auto 0;
+}
+
+.timeline::before{
+    content:'';
+    position:absolute;
+    left:50%;
+    width:3px;
+    background:linear-gradient(var(--red),transparent);
+    top:0;
+    bottom:0;
+}
+
+.timeline-item{
+    position:relative;
+    width:50%;
+    padding:30px;
+}
+
+.timeline-item:nth-child(odd){
+    left:0;
+    text-align:right;
+}
+
+.timeline-item:nth-child(even){
+    left:50%;
+}
+
+.timeline-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:25px;
+    backdrop-filter:blur(10px);
+    transition:0.5s;
+}
+
+.timeline-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 30px rgba(255,0,85,0.2);
+}
+
+.timeline-date{
+    color:var(--red);
+    margin-bottom:15px;
+    font-weight:600;
+}
+
+/* =============================
+FUTURE SECTION
+============================= */
+
+.future{
+    background:
+    radial-gradient(circle at top, rgba(255,0,85,0.08), transparent 30%),
+    black;
+}
+
+.future-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.future-card{
+    background:rgba(255,255,255,0.04);
+    padding:35px;
+    border-radius:30px;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.5s;
+}
+
+.future-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 40px rgba(255,0,85,0.15);
+}
+
+.future-card h3{
+    margin-bottom:20px;
+}
+
+.future-card p{
+    color:#cfcfcf;
+    line-height:1.8;
+}
+
+.ending{
+    text-align:center;
+    margin-top:140px;
+}
+
+.ending h1{
+    font-size:4rem;
+    max-width:1000px;
+    margin:auto;
+    line-height:1.4;
+}
+
+.replay-btn{
+    margin-top:50px;
+    padding:18px 40px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,var(--red),#5d0015);
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.replay-btn:hover{
+    transform:scale(1.05);
+}
+
+/* =============================
+RESPONSIVE
+============================= */
+
+@media(max-width:900px){
+
+.hero h1{
+    font-size:3rem;
+}
+
+.section-title h2{
+    font-size:2.5rem;
+}
+
+.diary-title{
+    font-size:3rem;
+}
+
+.timeline::before{
+    left:20px;
+}
+
+.timeline-item{
+    width:100%;
+    left:0 !important;
+    padding-left:60px;
+    text-align:left !important;
+}
+
+.ending h1{
+    font-size:2.4rem;
+}
+
+.letter-card{
+    padding:40px 25px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- =============================
+MOUSE GLOW
+============================= -->
+
+<div class="glow"></div>
+
+<!-- =============================
+PASSWORD SCREEN
+============================= -->
+
+<div id="lockScreen">
+
+<div class="lock-overlay"></div>
+
+<div class="lock-content">
+
+<h1>Kiran & Sewak</h1>
+
+<p>
+Only our hearts know this universe.
+</p>
+
+<input type="password" id="password" class="password-box" placeholder="Enter our secret..." />
+
+<button class="enter-btn" onclick="checkPassword()">
+Enter Our Universe
+</button>
+
+</div>
+</div>
+
+<!-- =============================
+MAIN WEBSITE
+============================= -->
+
+<div id="mainContent">
+
+<!-- =============================
+HERO
+============================= -->
+
+<section class="hero">
+
+<div class="particles">
+<span style="left:10%;animation-delay:0s;"></span>
+<span style="left:20%;animation-delay:2s;"></span>
+<span style="left:70%;animation-delay:4s;"></span>
+<span style="left:90%;animation-delay:1s;"></span>
+</div>
+
+<div class="hero-content">
+
+<p class="hero-sub">A PRIVATE DIGITAL UNIVERSE</p>
+
+<h1>
+Kiran <span>&</span> Sewak
+</h1>
+
+
+
+<!-- =============================
+ADD YOUR MUSIC FILE HERE
+Replace music.mp3 with your song
+============================= -->
+
+
+
+</div>
+</section>
+
+<!-- =============================
+SECTION 1
+BIRTHDAY LETTER
+============================= -->
+
+<section>
+
+<div class="section-title">
+<h2>Happy Birthday, My Home.</h2>
+<p>A letter written between distance and forever.</p>
+</div>
+
+<div class="letter-wrapper">
+
+<div class="letter-card">
+
+<h1 class="diary-title">To Sewak ❤️</h1>
+
+<div class="typewriter">
+<pre>
+Iss saal menu buhot te nhi pata ki bolu but mein buhot khush hu mere bhugu nal 
+mera kaka inna hot ho rhya hain kinna pyaar karde hain or kinna caring hain merre li menu words 
+nhi milde mein 
+I LOVE YOU SEWAK <3
+buhot kuch dekhya tuvde nal buhot lade buhot gussa kita but mera home tusi ho
+menu nhi pata hun ki apne ch buhot fancy words dilod hain yah nhi but menu tuvde nal masti karna buhot pasand hain 
+hun mein pahle jaisi nhi hu jo complaints karu 
+i feel save 
+i feel happy 
+tuvde mera buhot khayal rakhya va 
+and mein honestly sirf tuvde nalhi inna khush hu 
+tusi mere aason khatamkite hain mein 
+jo wish kita tusi menu deta 
+MERE KILLER BABA JI
+THANK YOU MERE KOL AAN LI 
+HAPPYYYY BIRTHDAY SEWU
+</pre>
+<!-- ==================================================
+WRITE YOUR LETTER HERE
+Example:
+
+My love,
+Every distance between us only taught me...
+================================================== -->
+
+</div>
+
+<button class="read-btn">
+Read Slowly ❤️
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =============================
+SECTION 2
+GALLERY + TIMELINE
+============================= -->
+
+<section>
+
+<div class="section-title">
+<h2>Gallery & Milestones</h2>
+<p>Every memory became another universe.</p>
+</div>
+
+<!-- =============================
+GALLERY
+ADD YOUR IMAGES BELOW
+============================= -->
+
+<div class="gallery-grid">
+
+<div class="gallery-item">
+<img src="image1.jpg">
+<div class="gallery-overlay">
+<p>Our memory.</p>
+</div>
+</div>
+
+<div class="gallery-item">
+<img src="image2.jpg">
+<div class="gallery-overlay">
+<p>Late night emotions.</p>
+</div>
+</div>
+
+<div class="gallery-item">
+<img src="image3.jpg">
+<div class="gallery-overlay">
+<p>Distance never ended us.</p>
+</div>
+</div>
+
+
+<div class="gallery-item">
+<img src="image4.jpg">
+<div class="gallery-overlay">
+<p>Late night emotions.</p>
+</div>
+</div>
+
+<div class="gallery-item">
+<img src="image5.jpg">
+<div class="gallery-overlay">
+<p>Late night emotions.</p>
+</div>
+</div>
+
+</div>
+
+<!-- =============================
+TIMELINE
+============================= -->
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="timeline-card">
+<div class="timeline-date">23-03-2022</div>
+<p>First conversation — where strangers slowly became home.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-card">
+<div class="timeline-date">23-04-2022</div>
+<p>The proposal — where feelings finally got words.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-card">
+<div class="timeline-date">08-05-2022</div>
+<p>The acceptance — the day love became real.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-card">
+<div class="timeline-date">03-10-2023</div>
+<p>The wild phase — when emotions became intense and complicated.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-card">
+<div class="timeline-date">11-02-2024</div>
+<p>First meeting — after distance, finally seeing each other for real.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-card">
+<div class="timeline-date">31-01-2026</div>
+<p>Second meeting — proof that distance never killed love.</p>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- =============================
+SECTION 3
+FUTURE
+============================= -->
+
+<section class="future">
+
+<div class="section-title">
+<h2>Our Unfinished Forever</h2>
+<p>Till every distance disappears.</p>
+</div>
+
+<div class="future-grid">
+
+<div class="future-card">
+<h3>Future Travels</h3>
+<p>
+One day the calls become tickets,
+the waiting becomes airport hugs,
+and every dream destination becomes ours.
+</p>
+</div>
+
+<div class="future-card">
+<h3>Midnight Drives</h3>
+<p>
+Late night playlists,
+city lights,
+quiet roads,
+and finally no distance between us anymore.
+</p>
+</div>
+
+<div class="future-card">
+<h3>Peaceful Home</h3>
+<p>
+A small peaceful universe,
+filled with laughter,
+soft mornings,
+comfort,
+and safe love.
+</p>
+</div>
+
+<div class="future-card">
+<h3>Supporting Dreams</h3>
+<p>
+No matter how hard life becomes,
+we keep building each other instead of breaking apart.
+</p>
+</div>
+
+</div>
+
+<div class="ending">
+
+<h1>
+“You were never just a person…
+you became my safest feeling.”
+</h1>
+
+<button class="replay-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+Replay Our Story
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<script>
+
+/* =============================
+LENIS SMOOTH SCROLL
+============================= */
+
+const lenis = new Lenis()
+
+function raf(time) {
+lenis.raf(time)
+requestAnimationFrame(raf)
+}
+
+requestAnimationFrame(raf)
+
+/* =============================
+PASSWORD SYSTEM
+============================= */
+
+function checkPassword(){
+
+const pass = document.getElementById("password").value
+const lock = document.getElementById("lockScreen")
+const main = document.getElementById("mainContent")
+
+if(pass === "Sk@@..11"){
+
+gsap.to(lock,{
+opacity:0,
+duration:1.5,
+onComplete:()=>{
+lock.style.display="none"
+main.style.opacity="1"
+main.style.pointerEvents="all"
+}
+})
+
+gsap.from("#mainContent",{
+opacity:0,
+y:50,
+duration:2
+})
+
+}else{
+
+const box = document.querySelector(".lock-content")
+
+box.classList.add("shake")
+
+setTimeout(()=>{
+box.classList.remove("shake")
+},500)
+
+}
+
+}
+
+/* =============================
+MOUSE GLOW
+============================= */
+
+const glow = document.querySelector(".glow")
+
+window.addEventListener("mousemove",(e)=>{
+
+glow.style.left = e.clientX + "px"
+glow.style.top = e.clientY + "px"
+
+})
+
+/* =============================
+MUSIC
+============================= */
+
+const music = document.getElementById("bgMusic")
+let playing = false
+
+function toggleMusic(){
+
+if(!playing){
+music.play()
+playing = true
+}else{
+music.pause()
+playing = false
+}
+
+}
+
+/* =============================
+GSAP ANIMATIONS
+============================= */
+
+gsap.registerPlugin(ScrollTrigger)
+
+gsap.utils.toArray(".timeline-card").forEach((card)=>{
+
+gsap.from(card,{
+opacity:0,
+y:100,
+duration:1.2,
+scrollTrigger:{
+trigger:card,
+start:"top 80%"
+}
+})
+
+})
+
+gsap.utils.toArray(".future-card").forEach((card)=>{
+
+gsap.from(card,{
+opacity:0,
+scale:0.8,
+duration:1,
+scrollTrigger:{
+trigger:card,
+start:"top 85%"
+}
+})
+
+})
+
+gsap.from(".letter-card",{
+opacity:0,
+y:100,
+duration:1.5,
+scrollTrigger:{
+trigger:".letter-card",
+start:"top 80%"
+}
+})
+
+</script>
+
+</body>
+</html>
+
